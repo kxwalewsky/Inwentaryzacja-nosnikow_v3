@@ -3,14 +3,11 @@ name: Build Windows installer
 on:
   workflow_dispatch:
   push:
-    branches: [ main, master ]
-
-env:
-  CARGO_TERM_COLOR: always
+    branches:
+      - main
 
 jobs:
   build-windows:
-    name: Build .exe and .msi
     runs-on: windows-latest
 
     steps:
@@ -28,19 +25,29 @@ jobs:
       - name: Install frontend dependencies
         run: npm install
 
-      - name: Check installed Tauri CLI
-        run: npm list @tauri-apps/cli
+      - name: Install Tauri CLI
+        run: npm install --save-dev @tauri-apps/cli@latest
 
       - name: Build Tauri Windows installer
-        run: npm exec tauri build -- --target x86_64-pc-windows-msvc
+        run: npx tauri build --target x86_64-pc-windows-msvc
 
-      - name: Upload Windows installers
+      - name: Show generated files
+        if: always()
+        shell: pwsh
+        run: |
+          Write-Host "Files in src-tauri/target:"
+          if (Test-Path "src-tauri/target") {
+            Get-ChildItem -Path "src-tauri/target" -Recurse | Select-Object FullName
+          } else {
+            Write-Host "src-tauri/target does not exist"
+          }
+
+      - name: Upload generated Windows files
         uses: actions/upload-artifact@v4
         with:
           name: Repetytorium-POS-Windows
           path: |
-            src-tauri/target/x86_64-pc-windows-msvc/release/bundle/**/*.exe
-            src-tauri/target/x86_64-pc-windows-msvc/release/bundle/**/*.msi
+            src-tauri/target/release/*.exe
             src-tauri/target/release/bundle/**/*.exe
             src-tauri/target/release/bundle/**/*.msi
           if-no-files-found: error
