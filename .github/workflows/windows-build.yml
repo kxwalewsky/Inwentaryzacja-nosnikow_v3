@@ -29,7 +29,7 @@ jobs:
         run: npm install
 
       - name: Build Tauri Windows installer
-        run: npm run tauri:build -- --target x86_64-pc-windows-msvc
+        run: npm exec tauri build -- --target x86_64-pc-windows-msvc
 
       - name: Upload Windows installers
         uses: actions/upload-artifact@v4
