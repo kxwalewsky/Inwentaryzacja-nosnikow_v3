@@ -22,14 +22,14 @@ jobs:
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install frontend dependencies
-        run: npm install
+      - name: Clean npm cache
+        run: npm cache clean --force
 
-      - name: Install Tauri CLI
-        run: npm install --save-dev @tauri-apps/cli@latest
+      - name: Install frontend dependencies
+        run: npm install --no-audit --no-fund
 
       - name: Build Tauri Windows installer
-        run: npx tauri build --target x86_64-pc-windows-msvc
+        run: npm run tauri:build -- --target x86_64-pc-windows-msvc
 
       - name: Show generated files
         if: always()
