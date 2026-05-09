@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "tauri:dev": "tauri dev",
+    "tauri:dev": "npx tauri dev",
     "build": "tsc && vite build",
-    "tauri:build": "tauri build"
+    "tauri:build": "npx tauri build"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.0.0",
