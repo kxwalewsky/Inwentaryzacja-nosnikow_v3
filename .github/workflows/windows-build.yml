@@ -28,6 +28,9 @@ jobs:
       - name: Install frontend dependencies
         run: npm install
 
+      - name: Check installed Tauri CLI
+        run: npm list @tauri-apps/cli
+
       - name: Build Tauri Windows installer
         run: npm exec tauri build -- --target x86_64-pc-windows-msvc
 
