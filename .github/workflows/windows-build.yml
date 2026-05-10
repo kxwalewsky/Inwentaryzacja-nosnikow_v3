@@ -47,6 +47,9 @@ jobs:
         with:
           name: Repetytorium-POS-Windows
           path: |
+            src-tauri/target/x86_64-pc-windows-msvc/release/*.exe
+            src-tauri/target/x86_64-pc-windows-msvc/release/bundle/**/*.exe
+            src-tauri/target/x86_64-pc-windows-msvc/release/bundle/**/*.msi
             src-tauri/target/release/*.exe
             src-tauri/target/release/bundle/**/*.exe
             src-tauri/target/release/bundle/**/*.msi
